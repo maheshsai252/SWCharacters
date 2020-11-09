@@ -11,7 +11,7 @@
         <!--SW Characters-->
         <scene sceneID="kkm-yM-k8I">
             <objects>
-                <tableViewController id="tff-ie-biI" customClass="mainTableController" customModule="SW_Characters" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="tff-ie-biI" customClass="CharacterListViewController" customModule="SW_Characters" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="cV0-69-CP1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -32,13 +32,24 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="SW Characters" id="7X1-wA-nDF">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Op9-cQ-51n">
-                            <connections>
-                                <action selector="addCharacter:" destination="tff-ie-biI" id="by2-LZ-mpy"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="Op9-cQ-51n">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="addCharacter:" destination="tff-ie-biI" id="by2-LZ-mpy"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="i3E-Fb-uqi">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="reloadCharacters:" destination="tff-ie-biI" id="xQI-47-Z3P"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBarButton" destination="Op9-cQ-51n" id="1DL-tL-has"/>
+                        <outlet property="reloadBarButton" destination="i3E-Fb-uqi" id="skI-H6-z4g"/>
                         <segue destination="94F-UY-9C1" kind="show" identifier="addCharacter" id="g2g-au-AEf"/>
                         <segue destination="1c9-Y7-PZ8" kind="show" identifier="CharacterDetail" id="Jlg-dX-Ow0"/>
                     </connections>
@@ -50,7 +61,7 @@
         <!--Add Character-->
         <scene sceneID="8uy-ib-mnK">
             <objects>
-                <viewController id="94F-UY-9C1" customClass="AddCharacter" customModule="SW_Characters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="94F-UY-9C1" customClass="CharacterAddViewController" customModule="SW_Characters" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8MG-3x-7V3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,7 +78,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OEz-Xw-Nhf">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of character" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OEz-Xw-Nhf">
                                                 <rect key="frame" x="197" y="0.0" width="187" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -83,7 +94,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rtv-gQ-fe8">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Height of character" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rtv-gQ-fe8">
                                                 <rect key="frame" x="197" y="0.0" width="187" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -99,20 +110,25 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WWe-Ap-g8Z">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Eye Color of character" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WWe-Ap-g8Z">
                                                 <rect key="frame" x="197" y="0.0" width="187" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91X-8U-Cz7">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="FQp-Jp-zNL">
                                         <rect key="frame" x="0.0" y="177" width="384" height="34"/>
-                                        <state key="normal" title="Save"/>
-                                        <connections>
-                                            <action selector="save:" destination="94F-UY-9C1" eventType="touchUpInside" id="h5C-d6-8NH"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91X-8U-Cz7">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="34"/>
+                                                <state key="normal" title="Save"/>
+                                                <connections>
+                                                    <action selector="save:" destination="94F-UY-9C1" eventType="touchUpInside" id="h5C-d6-8NH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -124,11 +140,20 @@
                             <constraint firstItem="n9i-Ci-otq" firstAttribute="trailing" secondItem="uz0-8C-L9q" secondAttribute="trailing" constant="20" id="j2j-z2-xhJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Character" id="9bh-mW-Lzc"/>
+                    <navigationItem key="navigationItem" title="Add Character" id="9bh-mW-Lzc">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="XBW-Mt-F2M">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="resetAllFields:" destination="94F-UY-9C1" id="D1i-FA-5Gr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="eyeField" destination="WWe-Ap-g8Z" id="sCd-tK-7DS"/>
                         <outlet property="heightField" destination="Rtv-gQ-fe8" id="Kuz-eq-rfw"/>
                         <outlet property="nameField" destination="OEz-Xw-Nhf" id="m6W-gb-bpa"/>
+                        <outlet property="resetButton" destination="XBW-Mt-F2M" id="hGP-kt-bZF"/>
+                        <outlet property="saveButton" destination="91X-8U-Cz7" id="5n3-oy-0WJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iaf-ia-bts" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -138,36 +163,35 @@
         <!--Detail-->
         <scene sceneID="Pyb-0H-Ja2">
             <objects>
-                <viewController id="1c9-Y7-PZ8" customClass="CharacterDetail" customModule="SW_Characters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1c9-Y7-PZ8" customClass="CharacterDetailViewController" customModule="SW_Characters" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ksD-Jv-5Uy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IuY-Hm-VH4">
-                                <rect key="frame" x="10" y="176" width="394" height="230"/>
+                                <rect key="frame" x="10" y="184" width="394" height="230"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HC0-Tk-E59">
-                                        <rect key="frame" x="172" y="0.0" width="50" height="50"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Header" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3u-vt-1y8">
+                                        <rect key="frame" x="169" y="0.0" width="56" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="362-ra-V9L"/>
-                                            <constraint firstAttribute="height" constant="50" id="sSz-az-RyD"/>
+                                            <constraint firstAttribute="height" constant="50" id="2Lr-pd-giC"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="40z-x0-Xwa"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
-                                        <size key="shadowOffset" width="0.0" height="5"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="eAz-g4-ZUm">
-                                        <rect key="frame" x="139" y="60" width="116.5" height="50"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="eAz-g4-ZUm">
+                                        <rect key="frame" x="137" y="60" width="120" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EuO-3q-tuu">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EuO-3q-tuu">
                                                 <rect key="frame" x="0.0" y="15" width="45" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNd-UX-aQc">
-                                                <rect key="frame" x="75" y="15" width="41.5" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNd-UX-aQc">
+                                                <rect key="frame" x="75" y="15" width="45" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -183,7 +207,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpY-gy-W21">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpY-gy-W21">
                                                 <rect key="frame" x="80.5" y="15" width="50.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -200,7 +224,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKy-Da-IXU">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKy-Da-IXU">
                                                 <rect key="frame" x="103" y="15" width="73" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -221,16 +245,18 @@
                     </view>
                     <navigationItem key="navigationItem" title="Detail" id="9Bv-7V-Ewf">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="Yqa-kl-BJh">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="deletePressed:" destination="1c9-Y7-PZ8" id="G1p-Ed-Quw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="countLabel" destination="HC0-Tk-E59" id="WGo-xB-Zu5"/>
                         <outlet property="eye" destination="NKy-Da-IXU" id="fVv-Ih-csP"/>
+                        <outlet property="headerLabel" destination="t3u-vt-1y8" id="yMZ-Ua-ISP"/>
                         <outlet property="height" destination="bpY-gy-W21" id="BBE-jg-Tz3"/>
                         <outlet property="name" destination="DNd-UX-aQc" id="27C-aG-yoZ"/>
+                        <outlet property="removeCharacterButton" destination="Yqa-kl-BJh" id="hvg-RQ-vGF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1GQ-93-Zzm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -245,6 +271,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="crG-fj-ZV6">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" systemColor="systemRedColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" systemColor="systemBackgroundColor"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -259,6 +290,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

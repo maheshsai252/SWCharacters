@@ -21,50 +21,38 @@ class SW_CharactersUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    // MARK: - Test List Of Characters View
 
-    func testTableView() throws {
+
+    func testCharacterTableView() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launchArguments = ["enable-testing"]
         app.launch()
-            app.tables["CharacterList"].tap()
+        CharacterListViewControllerHelper().testCharacterListScreen(of: app)
+       
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-    func testAdd()
-    {
-        
+    // MARK: - Test Add Character
+
+    func testAddCharacterView() {
         
         let app = XCUIApplication()
-        XCUIApplication().activate()
-        app.navigationBars["SW Characters"].buttons["Add"].tap()
+        app.launchArguments = ["enable-testing"]
+        app.launch()
         
-        let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
-        element.children(matching: .other).element(boundBy: 0).children(matching: .textField).element.tap()
-        
-        let textField = element.children(matching: .other).element(boundBy: 1).children(matching: .textField).element
-        textField.tap()
-        textField.tap()
-        
-        let textField2 = element.children(matching: .other).element(boundBy: 2).children(matching: .textField).element
-        textField2.tap()
-        textField2.tap()
-        app/*@START_MENU_TOKEN@*/.staticTexts["Save"]/*[[".buttons[\"Save\"].staticTexts[\"Save\"]",".staticTexts[\"Save\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-    
+        CharacterAddViewControllerHelper().testCharacterAddScreen(of: app)
     }
-    func testDetail()
-    {
+    
+    // MARK: - Test Detail Character
+
+    func testDetailCharacterView() {
         
         let app = XCUIApplication()
         app.launch()
-        app.tables["CharacterList"]/*@START_MENU_TOKEN@*/.staticTexts["Obi-Wan Kenobi"]/*[[".cells.staticTexts[\"Obi-Wan Kenobi\"]",".staticTexts[\"Obi-Wan Kenobi\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        app.staticTexts["Obi-Wan Kenobi"].tap()
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1).tap()
-        app.staticTexts["blue-gray"].tap()
-        
+        CharacterDetailViewControllerHelper().testCharacterDetailScreen(of:app)
         
     }
-    func testLaunchPerformance() throws {
-        
-    }
+   
 }

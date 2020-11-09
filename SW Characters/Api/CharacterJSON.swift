@@ -7,12 +7,13 @@
 
 import Foundation
 
-struct character:Codable
+struct CharacterJSON:Codable
 {
     let name:String
     let height:String
     let eye_color:String
 }
-struct results:Codable {
-    let results:[character]
+
+struct Results:Codable {
+    let results:[CharacterJSON]
 }

@@ -9,35 +9,48 @@ import XCTest
 @testable import SW_Characters
 
 class SW_CharactersTests: XCTestCase {
-    var vm:characterVM!
+    var viewModel:CharacterViewModel!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         super.setUp()
-        vm=characterVM()
+        viewModel = CharacterViewModel()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
-        vm=nil
+        viewModel = nil
     }
+    // MARK: - Test Add Character
 
-    func testAdd()
+    func testAddCharacter()
     {
-        let c=vm.characterArray.count
-        vm.add(name: "oiu", height: "120", eyeColor: "blue")
-        XCTAssertEqual(vm.characterArray.count,c+1 , "added")
+        let count = viewModel.characterArray.count
+        viewModel.addCharacter(name: "oiu", height: "120", eyeColor: "blue")
+        XCTAssertEqual(viewModel.characterArray.count,count+1 , "added")
         
     }
-    func testRemove()
+    
+    func testAddCharacterWithEmptyValues()
+    {
+        let count = viewModel.characterArray.count
+        viewModel.addCharacter(name: "", height: "", eyeColor: "")
+        XCTAssertEqual(viewModel.characterArray.count,count , "Not Added")
+        
+    }
+    
+    
+    // MARK: - Test Remove Character
+
+    func testRemoveCharacter()
     {
         
-        vm.add(name: "oiu", height: "120", eyeColor: "blue")
-        let c=vm.characterArray.count
-        vm.selectedChar=vm.characterArray[0]
-        vm.remove()
-        XCTAssertEqual(vm.characterArray.count,c-1 , "removed")
+        viewModel.addCharacter(name: "oiu", height: "120", eyeColor: "blue")
+        let count = viewModel.characterArray.count
+        viewModel.selectedChar=viewModel.characterArray[0]
+        viewModel.removeCharacter()
+        XCTAssertEqual(viewModel.characterArray.count,count-1 , "removed")
     }
 
 
